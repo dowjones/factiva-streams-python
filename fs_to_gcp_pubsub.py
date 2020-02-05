@@ -10,7 +10,7 @@ def main():
     gcp_pubsub_topic = os.getenv('GCP_PUBSUB_TOPIC', None)
     gcp_creds = os.getenv('GOOGLE_APPLICATION_CREDENTIALS', None)
 
-    if gcp_project_id is not None and gcp_pubsub_topic is not None and gcp_creds is not None:
+    if gcp_project_id is not None and gcp_pubsub_topic is not None:
         logger.info("Sending messages to Pub/Sub topic {} in the GCP project {}".format(gcp_pubsub_topic, gcp_project_id))
         listener = Listener()
         ps_publisher = pubsub_v1.PublisherClient()
