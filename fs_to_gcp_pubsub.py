@@ -18,10 +18,13 @@ def main():
         topic_path = ps_publisher.topic_path(gcp_project_id, gcp_pubsub_topic)
 
         def callback(message, subscription_id, file_handle=None):
+            msg_copy = {
+                'stream-listen-ts': time.time()
+            }
             callback.counter += 1
             logger.info("ACTION: {}, AN: {}".format(message['action'], message['an']))
-            message["stream-listen-ts"] = time.time()
-            m_data = json.dumps(message, ensure_ascii=False).encode("utf-8")
+            msg_copy.update(message)
+            m_data = json.dumps(msg_copy, ensure_ascii=False).encode("utf-8")
             ps_publisher.publish(topic_path, data=m_data)
             return True
 
