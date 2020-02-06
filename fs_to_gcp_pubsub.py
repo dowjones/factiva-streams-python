@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from google.cloud import pubsub_v1
 from FactivaStreams.listener import Listener
 from FactivaStreams import logger
@@ -19,6 +20,7 @@ def main():
         def callback(message, subscription_id, file_handle=None):
             callback.counter += 1
             logger.info("ACTION: {}, AN: {}".format(message['action'], message['an']))
+            message["stream-listen-ts"] = time.time()
             m_data = json.dumps(message, ensure_ascii=False).encode("utf-8")
             ps_publisher.publish(topic_path, data=m_data)
             return True
