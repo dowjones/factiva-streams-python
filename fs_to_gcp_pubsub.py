@@ -19,7 +19,7 @@ def main():
 
         def callback(message, subscription_id, file_handle=None):
             msg_copy = {
-                'stream-listen-ts': time.time()
+                'zzz_stream_listen_ts': time.time()
             }
             callback.counter += 1
             logger.info("ACTION: {}, AN: {}".format(message['action'], message['an']))
